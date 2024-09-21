@@ -8,6 +8,16 @@ public class Reader {
     private String lastName;
     private List<Book> books;
 
+    public Reader() {
+    }
+
+    public Reader(Long readerId, String firstName, String lastName, List<Book> books) {
+        this.readerId = readerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.books = books;
+    }
+
     public Long getReaderId() {
         return readerId;
     }

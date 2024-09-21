@@ -23,6 +23,11 @@ public class ReaderServlet extends HttpServlet {
         this.objectMapper = new ObjectMapper();
     }
 
+    public ReaderServlet(ReaderService readerService) {
+        this.readerService = readerService;
+        this.objectMapper = new ObjectMapper();
+    }
+
     private static void setJsonHeaders(HttpServletResponse resp) {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

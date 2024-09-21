@@ -10,6 +10,17 @@ public class Book {
     private List<Author> authors;
     private Reader reader;
 
+    public Book() {
+    }
+
+    public Book(Long bookId, String title, int year, List<Author> authors, Reader reader) {
+        this.bookId = bookId;
+        this.title = title;
+        this.year = year;
+        this.authors = authors;
+        this.reader = reader;
+    }
+
     public Long getBookId() {
         return bookId;
     }

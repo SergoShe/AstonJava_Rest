@@ -3,10 +3,21 @@ package com.github.SergoShe.DTO;
 import java.util.List;
 
 public class AuthorDTO {
+
     private Long authorId;
     private String firstName;
     private String lastName;
     private List<BookDTO> books;
+
+    public AuthorDTO() {
+    }
+
+    public AuthorDTO(Long authorId, String firstName, String lastName, List<BookDTO> books) {
+        this.authorId = authorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.books = books;
+    }
 
     public Long getAuthorId() {
         return authorId;

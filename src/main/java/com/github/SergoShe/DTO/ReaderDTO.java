@@ -8,6 +8,16 @@ public class ReaderDTO {
     private String lastName;
     private List<BookDTO> books;
 
+    public ReaderDTO() {
+    }
+
+    public ReaderDTO(Long readerId, String firstName, String lastName, List<BookDTO> books) {
+        this.readerId = readerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.books = books;
+    }
+
     public Long getReaderId() {
         return readerId;
     }

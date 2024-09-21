@@ -4,17 +4,28 @@ import java.util.List;
 
 public class BookDTO {
 
-    private long bookId;
+    private Long bookId;
     private String title;
     private int year;
     private List<AuthorDTO> authors;
     private ReaderDTO reader;
 
-    public long getBookId() {
+    public BookDTO() {
+    }
+
+    public BookDTO(Long bookId, String title, int year, List<AuthorDTO> authors, ReaderDTO reader) {
+        this.bookId = bookId;
+        this.title = title;
+        this.year = year;
+        this.authors = authors;
+        this.reader = reader;
+    }
+
+    public Long getBookId() {
         return bookId;
     }
 
-    public void setBookId(long bookId) {
+    public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 

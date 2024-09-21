@@ -20,6 +20,11 @@ public class AuthorServiceImpl implements AuthorService {
         this.authorMapper = AuthorMapper.INSTANCE;
     }
 
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+        this.authorMapper = AuthorMapper.INSTANCE;
+    }
+
     public static AuthorServiceImpl getInstance() {
         if (authorServiceImpl == null) {
             authorServiceImpl = new AuthorServiceImpl();

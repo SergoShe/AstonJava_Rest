@@ -25,6 +25,12 @@ public class BookServiceImpl implements BookService {
         this.bookMapper = BookMapper.INSTANCE;
     }
 
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
+        this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+        this.bookMapper = BookMapper.INSTANCE;
+    }
+
     public static BookServiceImpl getInstance() {
         if (bookServiceImpl == null) {
             bookServiceImpl = new BookServiceImpl();
@@ -34,16 +40,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO create(BookDTO bookDTO) {
-        if(bookDTO.getAuthors()==null || bookDTO.getAuthors().isEmpty()){
+        if (bookDTO.getAuthors() == null || bookDTO.getAuthors().isEmpty()) {
             throw new IllegalArgumentException("A book must have at least one author");
         }
         List<Long> authorIds = bookDTO.getAuthors().stream().map(AuthorDTO::getAuthorId).collect(Collectors.toList());
-        if(!authorRepository.existsByIds(authorIds)){
+        if (!authorRepository.existsByIds(authorIds)) {
             throw new IllegalArgumentException("One or more authors is not exist");
         }
         Book book = bookMapper.bookDTOToBook(bookDTO);
-        bookRepository.save(book);
-        return bookMapper.bookToBookDTO(book);
+        return bookMapper.bookToBookDTO(bookRepository.save(book));
     }
 
     @Override

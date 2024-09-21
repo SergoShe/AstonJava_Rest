@@ -33,7 +33,7 @@ public class ReaderRepositoryImpl implements ReaderRepository {
     }
 
     @Override
-    public void save(Reader reader) {
+    public Reader save(Reader reader) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_READER_SQL)) {
             statement.setString(1, reader.getFirstName());
@@ -46,6 +46,7 @@ public class ReaderRepositoryImpl implements ReaderRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return reader;
     }
 
     @Override

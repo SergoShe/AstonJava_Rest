@@ -38,7 +38,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public void save(Author author) {
+    public Author save(Author author) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_AUTHOR_SQL)) {
             statement.setString(1, author.getFirstName());
@@ -54,6 +54,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return author;
     }
 
     @Override

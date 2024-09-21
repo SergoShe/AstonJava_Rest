@@ -23,6 +23,11 @@ public class BookServlet extends HttpServlet {
         this.objectMapper = new ObjectMapper();
     }
 
+    public BookServlet(BookService bookService) {
+        this.bookService = bookService;
+        this.objectMapper = new ObjectMapper();
+    }
+
     private static void setJsonHeaders(HttpServletResponse resp) {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -97,7 +102,7 @@ public class BookServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

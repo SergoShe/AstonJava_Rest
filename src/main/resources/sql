@@ -1,0 +1,94 @@
+CREATE DATABASE IF NOT EXISTS bookstorage;
+USE bookstorage;
+
+-- Таблица Authors
+CREATE TABLE IF NOT EXISTS authors (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL
+);
+
+-- Таблица Readers
+CREATE TABLE IF NOT EXISTS readers (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL
+);
+
+-- Таблица Books
+CREATE TABLE IF NOT EXISTS books (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    year INT NOT NULL,
+    reader_id BIGINT,
+    FOREIGN KEY (reader_id) REFERENCES readers(id)
+);
+
+-- Таблица для связи many-to-many между Books и Authors
+CREATE TABLE IF NOT EXISTS book_authors (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    book_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (author_id) REFERENCES authors(id),
+    UNIQUE (book_id, author_id)
+);
+
+-- Вставка данных
+-- Авторы
+INSERT INTO authors (first_name, last_name) VALUES ('George', 'Orwell');
+INSERT INTO authors (first_name, last_name) VALUES ('Aldous', 'Huxley');
+INSERT INTO authors (first_name, last_name) VALUES ('Fyodor', 'Dostoevsky');
+INSERT INTO authors (first_name, last_name) VALUES ('Leo', 'Tolstoy');
+INSERT INTO authors (first_name, last_name) VALUES ('Mark', 'Twain');
+INSERT INTO authors (first_name, last_name) VALUES ('J.K.', 'Rowling');
+INSERT INTO authors (first_name, last_name) VALUES ('J.R.R.', 'Tolkien');
+INSERT INTO authors (first_name, last_name) VALUES ('Agatha', 'Christie');
+INSERT INTO authors (first_name, last_name) VALUES ('Jane', 'Austen');
+INSERT INTO authors (first_name, last_name) VALUES ('Charles', 'Dickens');
+
+-- Читатели
+INSERT INTO readers (first_name, last_name) VALUES ('John', 'Doe');
+INSERT INTO readers (first_name, last_name) VALUES ('Jane', 'Smith');
+INSERT INTO readers (first_name, last_name) VALUES ('Alice', 'Johnson');
+INSERT INTO readers (first_name, last_name) VALUES ('Bob', 'Brown');
+INSERT INTO readers (first_name, last_name) VALUES ('Charlie', 'Davis');
+INSERT INTO readers (first_name, last_name) VALUES ('Emily', 'Wilson');
+INSERT INTO readers (first_name, last_name) VALUES ('Frank', 'Miller');
+INSERT INTO readers (first_name, last_name) VALUES ('Grace', 'Clark');
+INSERT INTO readers (first_name, last_name) VALUES ('Hank', 'Lewis');
+INSERT INTO readers (first_name, last_name) VALUES ('Ivy', 'Walker');
+
+-- Книги
+INSERT INTO books (title, year, reader_id) VALUES ('1984', 1949, 1); -- George Orwell, читатель John Doe
+INSERT INTO books (title, year, reader_id) VALUES ('Brave New World', 1932, 2); -- Aldous Huxley, читатель Jane Smith
+INSERT INTO books (title, year, reader_id) VALUES ('Crime and Punishment', 1866, 3); -- Fyodor Dostoevsky, читатель Alice Johnson
+INSERT INTO books (title, year, reader_id) VALUES ('Animal Farm', 1945, 4); -- George Orwell, читатель Bob Brown
+INSERT INTO books (title, year, reader_id) VALUES ('War and Peace', 1869, 5); -- Leo Tolstoy, читатель Charlie Davis
+INSERT INTO books (title, year, reader_id) VALUES ('Adventures of Huckleberry Finn', 1884, 6); -- Mark Twain, читатель Emily Wilson
+INSERT INTO books (title, year, reader_id) VALUES ('Harry Potter and the Philosopher\'s Stone', 1997, 7); -- J.K. Rowling, читатель Frank Miller
+INSERT INTO books (title, year, reader_id) VALUES ('The Hobbit', 1937, 8); -- J.R.R. Tolkien, читатель Grace Clark
+INSERT INTO books (title, year, reader_id) VALUES ('Murder on the Orient Express', 1934, 9); -- Agatha Christie, читатель Hank Lewis
+INSERT INTO books (title, year, reader_id) VALUES ('Pride and Prejudice', 1813, 10); -- Jane Austen, читатель Ivy Walker
+
+-- Дополнительные книги для авторов
+INSERT INTO books (title, year, reader_id) VALUES ('The Catcher in the Rye', 1951, NULL); -- Без читателя
+INSERT INTO books (title, year, reader_id) VALUES ('Great Expectations', 1861, NULL); -- Без читателя
+
+-- Связи книги-авторы
+INSERT INTO book_authors (book_id, author_id) VALUES (1, 1); -- 1984 - George Orwell
+INSERT INTO book_authors (book_id, author_id) VALUES (2, 2); -- Brave New World - Aldous Huxley
+INSERT INTO book_authors (book_id, author_id) VALUES (3, 3); -- Crime and Punishment - Fyodor Dostoevsky
+INSERT INTO book_authors (book_id, author_id) VALUES (4, 1); -- Animal Farm - George Orwell
+INSERT INTO book_authors (book_id, author_id) VALUES (5, 4); -- War and Peace - Leo Tolstoy
+INSERT INTO book_authors (book_id, author_id) VALUES (6, 5); -- Adventures of Huckleberry Finn - Mark Twain
+INSERT INTO book_authors (book_id, author_id) VALUES (7, 6); -- Harry Potter and the Philosopher's Stone - J.K. Rowling
+INSERT INTO book_authors (book_id, author_id) VALUES (8, 7); -- The Hobbit - J.R.R. Tolkien
+INSERT INTO book_authors (book_id, author_id) VALUES (9, 8); -- Murder on the Orient Express - Agatha Christie
+INSERT INTO book_authors (book_id, author_id) VALUES (10, 9); -- Pride and Prejudice - Jane Austen
+
+-- Дополнительные связи книги-авторы
+INSERT INTO book_authors (book_id, author_id) VALUES (11, 10); -- The Catcher in the Rye - Charles Dickens
+INSERT INTO book_authors (book_id, author_id) VALUES (12, 10); -- Great Expectations - Charles Dickens
+INSERT INTO book_authors (book_id, author_id) VALUES (5, 3); -- War and Peace - Fyodor Dostoevsky
+INSERT INTO book_authors (book_id, author_id) VALUES (6, 8); -- Adventures of Huckleberry Finn - Agatha Christie

@@ -8,6 +8,15 @@ public class Author {
     private String lastName;
     private List<Book> books;
 
+    public Author() {}
+
+    public Author(Long authorId, String firstName, String lastName, List<Book> books) {
+        this.authorId = authorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.books = books;
+    }
+
     public Long getAuthorId() {
         return authorId;
     }

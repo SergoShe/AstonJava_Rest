@@ -35,7 +35,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void save(Book book) {
+    public Book save(Book book) {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_BOOK_SQL, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, book.getTitle());
@@ -54,6 +54,7 @@ public class BookRepositoryImpl implements BookRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return book;
     }
 
     private void insertBooksAuthors(Book book, Connection connection) throws SQLException {

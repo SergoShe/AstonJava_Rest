@@ -20,6 +20,11 @@ public class ReaderServiceImpl implements ReaderService {
         this.readerMapper = ReaderMapper.INSTANCE;
     }
 
+    public ReaderServiceImpl(ReaderRepository readerRepository) {
+        this.readerRepository = readerRepository;
+        this.readerMapper = ReaderMapper.INSTANCE;
+    }
+
     public static ReaderServiceImpl getInstance() {
         if (readerServiceImpl == null) {
             readerServiceImpl = new ReaderServiceImpl();

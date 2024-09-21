@@ -23,6 +23,11 @@ public class AuthorServlet extends HttpServlet {
         this.objectMapper = new ObjectMapper();
     }
 
+    public AuthorServlet(AuthorService authorService) {
+        this.authorService = authorService;
+        this.objectMapper = new ObjectMapper();
+    }
+
     private static void setJsonHeaders(HttpServletResponse resp) {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -98,7 +103,6 @@ public class AuthorServlet extends HttpServlet {
             }
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            e.printStackTrace();
         }
     }
 }
